@@ -17,7 +17,10 @@ export const registerUser = async (req, res) => {
     
 export const bookLocker = async (req, res) => {
     try {
-        const bookedLocker = await userService.bookLocker();
+
+        const studentId = req.body.studentId;
+
+        const bookedLocker = await userService.bookLocker(studentId);
 
         res.status(200).json({
             message: 'Casier réservé avec succès',

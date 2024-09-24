@@ -1,6 +1,10 @@
 import User from "../../repository/schemas/user.schema.js";
 import Locker from "../../repository/schemas/locker.schema.js";
+import { BookingService } from "./booking.service.js"; // Importer le BookingService
 import {BASE_URL} from "../../../index.js"
+
+const bookingService = new BookingService();
+
 
 export class UserService {
 
@@ -25,7 +29,7 @@ export class UserService {
 
     logout () {};
 
-    async bookLocker() {
+    async bookLocker(studentId) {
         try {
             const response = await fetch(`${BASE_URL}/api/locker/available`);
             if (!response.ok) {
@@ -51,8 +55,12 @@ export class UserService {
                 throw new Error('Erreur lors de la réservation du casier');
             }
 
-            // 5. Retourner le casier réservé
-            return updatedLocker;
+            const newBooking = await bookingService.create(updatedLocker._id, studentId);
+
+            return {
+                locker: updatedLocker,
+                booking: newBooking
+            };
         } catch (error) {
             throw new Error(`Erreur lors de la réservation du casier : ${error.message}`);
         }
