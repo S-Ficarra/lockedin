@@ -3,6 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './src/routes/user.routes.js'
+import lockerRoutes from './src/routes/locker.routes.js'
 
 // Charger les variables d'environnement
 dotenv.config();
@@ -30,6 +31,9 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 
 app.use('/api/users', userRoutes);
+
+app.use('/api/locker', lockerRoutes);
+
 
 
 // Démarrer le serveur
