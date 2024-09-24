@@ -1,5 +1,5 @@
-import User from "../../repository/schemas/user.schema.js";
-import Locker from "../../repository/schemas/locker.schema.js";
+import User from "../../schemas/user.schema.js";
+import Locker from "../../schemas/locker.schema.js";
 import { BookingService } from "./booking.service.js"; // Importer le BookingService
 import {BASE_URL} from "../../../index.js"
 

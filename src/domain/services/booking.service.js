@@ -1,6 +1,6 @@
-import Booking from '../../repository/schemas/booking.schema.js';
-import Locker from '../../repository/schemas/locker.schema.js';
-import User from '../../repository/schemas/user.schema.js';
+import Booking from '../../schemas/booking.schema.js';
+import Locker from '../../schemas/locker.schema.js';
+import User from '../../schemas/user.schema.js';
 
 export class BookingService {
 
@@ -20,11 +20,16 @@ export class BookingService {
                 throw new Error('Utilisateur non trouvé');
             }            
 
+            const now = new Date(); // Date actuelle
+            const endTime = new Date();
+            endTime.setHours(24, 0, 0, 0);
+
             // Créer une nouvelle réservation
             const newBooking = new Booking({
                 user: user._id,
                 locker: lockerId,
-                startTime: new Date(),  // Démarrer la réservation immédiatement
+                startTime: now,  // Démarrer la réservation immédiatement
+                endTime: endTime, // Fin de la réservation au prochain minuit
                 status: 'active' // Statut de la réservation
             });
 
