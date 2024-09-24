@@ -1,4 +1,6 @@
 import User from "../../repository/schemas/user.schema.js";
+import Locker from "../../repository/schemas/locker.schema.js";
+import {BASE_URL} from "../../../index.js"
 
 export class UserService {
 
@@ -25,12 +27,13 @@ export class UserService {
 
     async bookLocker() {
         try {
-            const response = await fetch('http://localhost:3000/api/locker/available');
+            const response = await fetch(`${BASE_URL}/api/locker/available`);
             if (!response.ok) {
                 throw new Error('Erreur lors de la récupération des casiers disponibles');
-            }
+            }    
 
             const availableLockers = await response.json();
+
 
             if (availableLockers.length === 0) {
                 return('Aucun casier disponible');
@@ -39,7 +42,7 @@ export class UserService {
             const lockerToBook = availableLockers[0]; 
 
             const updatedLocker = await Locker.findByIdAndUpdate(
-                lockerToBook.lockerId, // ID du casier sélectionné
+                lockerToBook._id, // ID du casier sélectionné
                 { status: 'occupied' }, // Mise à jour du statut
                 { new: true } // Retourner le casier mis à jour
             );
@@ -55,7 +58,7 @@ export class UserService {
         }
     }
 
-    
+
     viewPassword () {};
 
     openLocker () {}; 

@@ -1,6 +1,8 @@
+import { LockerService } from "../domain/services/locker.service.js";
 import { UserService } from "../domain/services/user.service.js";
 
 const userService = new UserService();
+const lockerService = new LockerService();
 
 export const registerUser = async (req, res) => {
     try {
@@ -12,4 +14,21 @@ export const registerUser = async (req, res) => {
         res.status(400).json({ error: error.message }); // Code de statut 400 pour une mauvaise demande
     }
 };
+    
+export const bookLocker = async (req, res) => {
+    try {
+        const bookedLocker = await userService.bookLocker();
+
+        res.status(200).json({
+            message: 'Casier réservé avec succès',
+            locker: bookedLocker
+        });
+    } catch (error) {
+        res.status(500).json({
+            error: `Erreur lors de la réservation du casier : ${error.message}`
+        });
+    }
+};
+
+
 

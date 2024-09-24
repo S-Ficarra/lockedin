@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import userRoutes from './src/routes/user.routes.js'
 import lockerRoutes from './src/routes/locker.routes.js'
 
+export const BASE_URL = 'http://localhost:3000'
+
 // Charger les variables d'environnement
 dotenv.config();
 
