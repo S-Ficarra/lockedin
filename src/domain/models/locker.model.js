@@ -1,4 +1,4 @@
-export class Locker {
+export class LockerModel {
 
     _id;
     _localisation;

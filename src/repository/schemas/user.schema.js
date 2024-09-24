@@ -36,23 +36,6 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-// Méthodes d'instance pour le modèle User
 
-// Récupérer les propriétés
-userSchema.methods.getId = function() {
-    return this._id;
-};
-
-userSchema.methods.getName = function() {
-    return this.name;
-};
-
-userSchema.methods.getFirstName = function() {
-    return this.firstName;
-};
-
-userSchema.methods.getEmail = function() {
-    return this.email;
-};
-
-userSchema.methods.getStudentId = function() {
+const User = mongoose.model('User', userSchema);
+module.exports = User;

@@ -1,7 +1,7 @@
-import { User } from "./user.model";
-import { Locker } from "./locker.model";
+import { UserModel } from "./user.model";
+import { LockerModel } from "./locker.model";
 
-export class Booking {
+export class BookingModel {
 
     _id;
     _user;
@@ -10,7 +10,7 @@ export class Booking {
     _endTime;
     _status;
 
-    constructor (id, User, Locker, startTime, endTime, status) {
+    constructor (id, UserModel, LockerModel, startTime, endTime, status) {
         this._id = id,
         this._user = User,
         this._locker = Locker,
