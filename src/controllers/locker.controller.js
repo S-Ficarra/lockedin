@@ -24,7 +24,7 @@ export const isLockerBooked = async (req, res) => {
         if (lockerId) {
             return res.status(200).json({ lockerId });
         } else {
-            return res.status(404).json(false);
+            return res.status(200).json({ lockerId : 0});
         }
     } catch (error) {
         return res.status(500).json({ error: `Erreur lors de la récupération des réservations : ${error.message}` });

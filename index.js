@@ -40,5 +40,5 @@ app.use('/api/locker', lockerRoutes);
 
 // Démarrer le serveur
 app.listen(port, () => {
-    console.log(`API en écoute sur http://localhost:${port}`);
+    console.log(`API en écoute sur ${BASE_URL}:${port}`);
 });

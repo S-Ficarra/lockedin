@@ -28,7 +28,7 @@ export class LockerService {
             });
 
             if (!booking) {
-                return null; // Aucun casier réservé ou pas de réservation active
+                return 0; // Aucun casier réservé ou pas de réservation active
             }
             
             const locker = await Locker.findById(booking.locker);

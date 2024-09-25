@@ -1,5 +1,5 @@
 import express from 'express';
-import { registerUser, bookLocker } from '../controllers/user.controller.js';
+import { registerUser, bookLocker, getAllUsers, getUserByStudentId } from '../controllers/user.controller.js';
 
 const router = express.Router();
 
@@ -7,6 +7,10 @@ const router = express.Router();
 router.post('/register', registerUser);
 
 router.post ('/bookLocker', bookLocker);
+
+router.get ('/allusers', getAllUsers)
+
+router.get ('/:studentId', getUserByStudentId)
 
 
 

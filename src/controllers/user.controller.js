@@ -33,5 +33,25 @@ export const bookLocker = async (req, res) => {
     }
 };
 
+export const getAllUsers = async (req, res) => {
+    try {
+        const allUsers = await userService.getAllUsers();
+
+        return res.status(200).json(allUsers);
+    } catch (error) {
+        return res.status(500).json({ error: `Erreur lors de la récupération des utilisateurs : ${error.message}` });
+    }
+};
+
+export const getUserByStudentId = async (req, res) => {
+    try {
+        const studentId = req.params.studentId        
+        const user = await userService.getUserByStudentId(studentId)
+        return res.status(200).json(user)
+    } catch (error) {
+        return res.status(500).json({ error: `Erreur lors de la récupération de l'utilisateur : ${error.message}` });
+    }
+}
+
 
 

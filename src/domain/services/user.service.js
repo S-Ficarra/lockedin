@@ -10,20 +10,59 @@ export class UserService {
 
     async register(userData) {
         try {
-            const newUser = new userSchema(userData);
+            const allUsers = await User.find().sort({ studentId: -1 });
+
+            let newStudentId = 1;  // Valeur par défaut si aucun utilisateur n'existe
+
+            if (allUsers.length > 0) {
+                // Récupérer le plus grand studentId et ajouter 1
+                const highestStudentId = parseInt(allUsers[0].studentId, 10); // Assurer que c'est un entier
+                newStudentId = highestStudentId + 1;
+            }
+
+            userData.studentId = newStudentId;
+
+            // Créer le nouvel utilisateur avec le studentId généré
+            const newUser = new User(userData);
+
             await newUser.save();
+
+            // Retourner les informations de l'utilisateur créé
             return {
                 id: newUser._id,
                 name: newUser.name,
                 firstName: newUser.firstName,
                 email: newUser.email,
                 role: newUser.role,
+                studentId: newUser.studentId,  // Inclure le studentId dans la réponse
                 registrationDate: newUser.registrationDate
             };
         } catch (error) {
             throw new Error(`Erreur lors de l'enregistrement de l'utilisateur : ${error.message}`);
         }
     }
+
+    async getAllUsers() {
+        try {
+            const allUsers = await User.find(); 
+            return allUsers;
+        } catch (error) {
+            throw new Error(`Erreur lors de la récupération des utilisateurs : ${error.message}`);
+        }
+    }
+
+    async getUserByStudentId(studentId) {
+        try {
+            const user = await User.findOne({ studentId });
+            if (!user) {
+                throw new Error('Utilisateur non trouvé');
+            }
+            return user;
+        } catch (error) {
+            throw new Error(`Erreur lors de la récupération de l'utilisateur : ${error.message}`);
+        }
+    }
+
 
     login () {};
 
@@ -65,11 +104,5 @@ export class UserService {
             throw new Error(`Erreur lors de la réservation du casier : ${error.message}`);
         }
     }
-
-
-    viewPassword () {};
-
-    openLocker () {}; 
-
 
 } 
