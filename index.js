@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './src/routes/user.routes.js'
 import lockerRoutes from './src/routes/locker.routes.js'
+import mailRoutes from './src/routes/mail.routes.js'
 
 export const BASE_URL = 'http://localhost:3000'
 
@@ -32,9 +33,11 @@ mongoose.connect(process.env.MONGODB_URI, {
     });
 
 
-app.use('/api/users', userRoutes);
+app.use('/users', userRoutes);
 
-app.use('/api/locker', lockerRoutes);
+app.use('/locker', lockerRoutes);
+
+app.use('/mail', mailRoutes)
 
 
 

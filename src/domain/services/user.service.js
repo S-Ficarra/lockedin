@@ -3,6 +3,7 @@ import Locker from "../../schemas/locker.schema.js";
 import { BookingService } from "./booking.service.js"; // Importer le BookingService
 import {BASE_URL} from "../../../index.js"
 
+
 const bookingService = new BookingService();
 
 
@@ -68,34 +69,36 @@ export class UserService {
 
     logout () {};
 
-    async bookLocker(studentId) {
+    async bookLocker(studentId, endTime) {
         try {
-            const response = await fetch(`${BASE_URL}/api/locker/available`);
+            // Récupérer les casiers disponibles
+            const response = await fetch(`${BASE_URL}/locker/available`);
             if (!response.ok) {
                 throw new Error('Erreur lors de la récupération des casiers disponibles');
             }    
 
             const availableLockers = await response.json();
-
-
+    
             if (availableLockers.length === 0) {
-                return('Aucun casier disponible');
+                return 'Aucun casier disponible';
             }
-
+    
             const lockerToBook = availableLockers[0]; 
-
+    
+            // Mettre à jour le statut du casier à "occupied"
             const updatedLocker = await Locker.findByIdAndUpdate(
-                lockerToBook._id, // ID du casier sélectionné
-                { status: 'occupied' }, // Mise à jour du statut
-                { new: true } // Retourner le casier mis à jour
+                lockerToBook._id,
+                { status: 'occupied' },
+                { new: true }
             );
-
+    
             if (!updatedLocker) {
                 throw new Error('Erreur lors de la réservation du casier');
             }
-
-            const newBooking = await bookingService.create(updatedLocker._id, studentId);
-
+    
+            // Créer une nouvelle réservation avec l'endTime personnalisé ou la fin de journée (minuit)
+            const newBooking = await bookingService.create(updatedLocker._id, studentId, endTime);
+    
             return {
                 locker: updatedLocker,
                 booking: newBooking
