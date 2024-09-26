@@ -7,7 +7,7 @@ import userRoutes from './src/routes/user.routes.js'
 import lockerRoutes from './src/routes/locker.routes.js'
 import mailRoutes from './src/routes/mail.routes.js'
 
-export const BASE_URL = 'http://localhost:3000'
+export const BASE_URL = 'http://api.workshop-b3.enzo-palermo.com:3000'
 
 // Charger les variables d'environnement
 dotenv.config();
