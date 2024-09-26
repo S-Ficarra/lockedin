@@ -2,6 +2,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import userRoutes from './src/routes/user.routes.js'
 import lockerRoutes from './src/routes/locker.routes.js'
 import mailRoutes from './src/routes/mail.routes.js'
@@ -18,6 +19,8 @@ const port = 3000;
 // Middleware pour traiter les requêtes JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+
 
 
 // Connexion à MongoDB
@@ -43,5 +46,5 @@ app.use('/mail', mailRoutes)
 
 // Démarrer le serveur
 app.listen(port, () => {
-    console.log(`API en écoute sur ${BASE_URL}:${port}`);
+    console.log(`API en écoute sur ${BASE_URL}`);
 });
