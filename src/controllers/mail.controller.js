@@ -4,13 +4,9 @@ const mailService = new MailService();
 
 export const sendEmail = async (req, res) => {
     try {
-        const { message } = req.body;
+        const { firstName, lastName, campus, lockerNumber, message } = req.body;
 
-        if (!message) {
-            return res.status(400).json({ success: false, error: 'Le message est requis.' });
-        }
-
-        const result = await mailService.sendMail(message);
+        const result = await mailService.sendMail({firstName, lastName, campus, lockerNumber, message});
         return res.status(200).json(result);
     } catch (error) {
         return res.status(500).json({ success: false, error: error.message });

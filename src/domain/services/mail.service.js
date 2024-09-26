@@ -1,8 +1,9 @@
 import nodemailer from 'nodemailer';
 
 export class MailService {
-    async sendMail(message) {
+    async sendMail({ firstName, lastName, campus, lockerNumber, message }) {
         try {
+            
             // Création d'un transporteur SMTP
             let transporter = nodemailer.createTransport({
                 service: 'gmail',
@@ -16,11 +17,11 @@ export class MailService {
             let mailOptions = {
                 from: process.env.SMTP_USER,
                 to: 'workshop2425.b3g19@gmail.com',
-                subject: 'INCIDENT',
-                text: message
+                subject: `INCIDENT: ${firstName} ${lastName}, Campus: ${campus}, Casier N°${lockerNumber}`, // Sujet personnalisé
+                text: message // Contenu du message
             };
 
-            // Envoi l'e-mail
+            // Envoie l'e-mail
             let info = await transporter.sendMail(mailOptions);
 
             console.log(`Email envoyé : ${info.response}`);

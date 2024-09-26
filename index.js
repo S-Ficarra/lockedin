@@ -40,7 +40,7 @@ app.use('/users', userRoutes);
 
 app.use('/locker', lockerRoutes);
 
-app.use('/mail', mailRoutes)
+app.use('/sendEmail', mailRoutes)
 
 
 
